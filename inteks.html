@@ -1,0 +1,3407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" type="image/png"
+          href="static/favicon.png" sizes="16x16"/>
+
+    <title>Глаголики</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="static/libs/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="static/libs/font-awesome-4.7.0/css/font-awesome.min.css">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link rel="stylesheet" href="static/libs/bootstrap-3.3.7-dist/ie10-viewport-bug-workaround.css">
+
+
+    <link rel="stylesheet" href="static/libs/normalize.css">
+    <link rel="stylesheet" href="static/libs/pnotify/pnotify.css">
+    <link rel="stylesheet" href="static/libs/pnotify/pnotify.buttons.css">
+
+    <style>
+        body {
+    padding-top: 70px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+/* Подписи к чекбоксам - не жирные */
+label {
+    font-weight: inherit;
+    margin: 0;
+}
+
+/* ряды кнопок должны иметь вертикальное расстояние 5px */
+.btn_selector {
+    margin-bottom: 5px;
+}
+.centered {
+    text-align: center;
+}
+
+/* Кнопки-заголовки должны иметь отступ от контента 10 px*/
+.dropdown_header_div {
+    margin-bottom: 10px;
+    font-weight:500;
+    font-size: 2rem;
+}
+
+.dropdown_header_div:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+/* Кнопка "сбросить фильтр" изначально не видна */
+.clear_filter {
+    display: none;
+}
+
+.modal_footer {
+    text-align: center;
+}
+
+#video_player {
+    max-width: 100%;
+    max-height: 400px;
+}
+
+#video_caption {
+    text-transform: uppercase;
+}
+
+.green {
+    color: green;
+}
+.orange {
+    color: orange;
+}
+.red {
+    color: red;
+}
+
+.navbar .navbar-nav {
+    display: inline-block;
+    float: none;
+    vertical-align: top;
+}
+
+.navbar .navbar-collapse {
+    text-align: center;
+}
+
+/* Блок с очками, с панелью управления и видеоблок по умолчанию не отображается */
+
+#final_score, #control_panel, #video_block, #photo_block {
+    display: none;
+}
+
+.thumbnail>img.thing_image_preview {
+    max-height: 200px;
+}
+
+#message_container {
+    display: none;
+}
+
+
+.preview_reward_icon {
+    cursor: pointer;
+    color: #aaaaaa;
+}
+.preview_reward_icon:hover {
+    color: #000000;
+}
+
+
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    background-color: #f5f5f5;
+}
+.container .text-muted {
+    margin: 20px 0;
+}
+
+
+.faq_left_header {
+    font-size: 2rem;
+    font-weight: 500;
+    /*padding-top: 34px;*/
+}
+
+
+/* Стили интро-страницы */
+#start_glagoliki_intro_video, #start_glagoliki_intro_reward {
+    cursor: pointer;
+}
+
+/* Common styles for all types */
+.bs-callout {
+    padding: 20px;
+    margin: 20px 0;
+    border: 1px solid #eee;
+    border-left-width: 5px;
+    border-radius: 3px;
+}
+.bs-callout h4 {
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+.bs-callout p:last-child {
+    margin-bottom: 0;
+}
+.bs-callout code {
+    border-radius: 3px;
+}
+.bs-callout ul {
+    margin-left: -20px;
+}
+
+/* Tighten up space between multiple callouts */
+.bs-callout + .bs-callout {
+    margin-top: -5px;
+}
+
+/* Variations */
+.bs-callout-danger {
+    border-left-color: #ce4844;
+}
+.bs-callout-danger h4 {
+    color: #ce4844;
+}
+.bs-callout-warning {
+    border-left-color: #aa6708;
+    background-color: #fff9e2;
+}
+.bs-callout-warning h4 {
+    color: #aa6708;
+}
+.bs-callout-info {
+    border-left-color: #1b809e;
+    background-color: #e7f8fd;
+}
+.bs-callout-info h4 {
+    color: #1b809e;
+}
+
+
+
+/* MARKETING CONTENT
+-------------------------------------------------- */
+
+/* Center align the text within the three columns below the carousel */
+.marketing .col-lg-4 {
+    margin-bottom: 20px;
+    text-align: center;
+}
+.marketing h2 {
+    font-weight: normal;
+}
+.marketing .col-lg-4 p {
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+
+/* Featurettes
+------------------------- */
+
+.featurette-divider {
+    margin: 50px 0; /* Space out the Bootstrap <hr> more */
+}
+
+/* Thin out the marketing headings */
+.featurette-heading {
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -1px;
+}
+.featurette-lead {
+    font-size: 19px;
+    font-weight: 300;
+}
+
+.featurette-heading {
+    font-size: 35px;
+}
+
+.featurette-screenshot {
+    margin-top: 40px;
+    border: 1px solid #e8e8e8;
+    box-shadow: 0 2px 5px rgba(0,0,0,.33), 0 2px 5px rgba(0,0,0,.26);
+}
+
+.elevated_border {
+    border: 1px solid #e8e8e8;
+    box-shadow: 0 2px 5px rgba(0,0,0,.33), 0 2px 5px rgba(0,0,0,.26);
+}
+
+
+
+
+/* Стили для мануала */
+
+.sub-header {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+/* Hide for mobile, show later */
+.sidebar {
+    display: none;
+}
+@media (min-width: 768px) {
+    .sidebar {
+        position: fixed;
+        top: 51px;
+        bottom: 0;
+        left: 0;
+        z-index: 1000;
+        display: block;
+        padding: 20px;
+        overflow-x: hidden;
+        overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+        border-right: 1px solid #eee;
+    }
+}
+
+/* Sidebar navigation */
+.nav-sidebar {
+    margin-right: -21px; /* 20px padding + 1px border */
+    margin-bottom: 20px;
+    margin-left: -20px;
+}
+.nav-sidebar > li > a, .sub_nav_list  > li > a {
+    padding: 6px 15px;
+}
+.nav-sidebar > .active > a,
+.nav-sidebar > .active > a:hover,
+.nav-sidebar > .active > a:focus {
+    color: #fff;
+    background-color: #428bca;
+}
+
+
+.sub_nav_list{
+    padding-left:20px;
+}
+
+/*
+ * Placeholder dashboard ideas
+ */
+
+
+span.anchor {
+    display: block;
+    position: relative;
+    top: -60px;
+    visibility: hidden;
+}
+    </style>
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="static/libs/bootstrap-3.3.7-dist/html5shiv.min.js"></script>
+      <script src="static/libs/bootstrap-3.3.7-dist/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
+    <div class="container">
+
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Глаголики</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+
+
+                <li><a href="#block_intro" data-toggle="tab">Главная</a></li>
+                <li><a href="#block_instructions" data-toggle="tab">Как работать</a></li>
+                <li><a href="#work_area" id="work_area_tab" data-toggle="tab">Тренажёр</a></li>
+                <li><a href="#settings" data-toggle="tab">Настройки</a></li>
+
+            </ul>
+
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="http://igrolog-school.ru" target="_blank">
+                    <span class="fa fa-copyright"></span>
+                    ШКОЛА ИГРОВОЙ ЛОГОПЕДИИ
+                </a></li>
+            </ul>
+
+
+        </div>
+    </div>
+</nav>
+<div class="container" id="message_container">
+    <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span> </button>
+        <span id="message_container_content">
+            Внимание! Доступна новая версия программы. <a href="#" class="alert-link">Скачать обновление</a>
+        </span>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="container">
+
+
+        <div class="tab-content">
+
+
+
+            
+
+            <div role="tabpanel" class="tab-pane fade in active" id="block_intro">
+                
+<div class="jumbotron" style="background-color: #fdeeea">
+    <div class="row">
+        <div class="col-sm-8">
+            <h1>Глаголики</h1>
+            <p>
+                Для ребенка с речевыми нарушениями запоминание глаголов часто становится «камнем преткновения» на пути овладения фразовой речью. Перед вами пособие, которое поможет ребенку понять, что такое – глагол, и научит его отличать простые глаголы друг от друга.
+            </p>
+        </div>
+        <div class="col-sm-4">
+            <img src="static/intro_manual_pics/glagoliki-cover.png" width="100%">
+        </div>
+    </div>
+
+</div>
+                
+
+<div align="center">
+    <h2>Какие трудности встречаются чаще всего?</h2>
+</div>
+
+<div class="row">
+    <div class="col-sm-6">
+        <div class="bs-callout bs-callout-info" id="callout-badges-ie8-empty">
+            <h4>Ребенок вместо глагола называет предмет или человека.</h4>
+            <p>
+                Он может ответить «мальчик» - когда его спрашивают, что делает мальчик.
+                Или, видя маму с бананом, на вопрос, что делает мама. ответить «банан».<br/>
+                <a role="button" data-toggle="collapse" href="#glagoliki_faq_1">
+                    Почему так происходит? <span class="fa fa-caret-down"></span>
+                </a>
+            </p>
+
+            <div class="collapse" id="glagoliki_faq_1">
+                <p>
+                    Потому, что необходимо дать название действию, значение которого абстрактно.
+                </p>
+                <p>
+                    Ребенок видит мальчика. Он видит банан. Но «ест» - он не видит,
+                    потому что значение глагола в отличие от значения существительного – абстрактно.
+                    Нужно сообразить, что речь идет о том, что в данный момент делает мама и что
+                    от малыша сейчас требуется присвоить название действию. Это новая задачка
+                    для ребенка: использование языковой абстракции. Раньше он называл только
+                    то, что видел: чашку, стул, пирамидку. И часто ребенок с речевой задержкой
+                    не в состоянии справиться с этой задачкой без помощи.
+
+                </p>
+                <p>
+
+                    Ситуация осложняется тем, что обычно педагоги учат с детьми названия
+                    глаголов по так называемой «сюжетной картинке». Процесс идет очень туго,
+                    потому что происходящего действия ребенок не видит, а видит статику,
+                    которая "намекает" на действие: на картинке нарисована девочка, она сидит
+                    за столом, перед ней тарелка с супом. Ребенок должен «достроить изображение»,
+                    отталкиваясь от атрибутов (девочка с ложкой у рта - значит сейчас она возьмет
+                    ложку в рот – значит она «ест»). Это вызывает трудности у ребенка с речевой задержкой.
+                </p>
+                <img src="static/intro_manual_pics/devochka-sup.png" width="100%">
+
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="bs-callout bs-callout-info" id="callout-badges-ie8-empty">
+            <h4>Ребенок путает названия разных глаголов.</h4>
+            <p>
+                Он говорит вместо «ест» «пьет» или наоборот.<br/>
+                <a role="button" data-toggle="collapse" href="#glagoliki_faq_2">
+                    Почему так происходит? <span class="fa fa-caret-down"></span>
+                </a>
+            </p>
+
+            <div class="collapse" id="glagoliki_faq_2">
+                <p>
+                    Потому, что необходимо дать название действию, значение которого абстрактно.
+                </p>
+                <p>
+                    Во – первых, опять же, потому что значение глагола абстрактно.
+                    Во вторых – визуально выполнение многих действий похоже.
+                    И без дополнительной опоры ребенку сложно отличить «надевает» от «снимает» -
+                    ведь разницу почти невозможно показать на рисунке.
+
+                </p>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="thumbnail">
+                            <img src="static/intro_manual_pics/intro-nadevaet.png">
+                            <div class="caption">
+                                <p align="center">Надевает</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="thumbnail">
+                            <img src="static/intro_manual_pics/intro-snimaet.png">
+                            <div class="caption">
+                                <p align="center">Снимает</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        
+    </div>
+</div>
+
+
+<div align="center">
+    <h2>Как помогут "Глаголики"?</h2>
+</div>
+<div class="container marketing">
+
+
+    <hr class="featurette-divider">
+
+    <div class="row featurette">
+        <div class="col-md-7">
+            <h2 class="featurette-heading">Живые картинки</h2>
+            <p class="featurette-lead">Мы подготовили "живые" картинки - небольшие видеосюжеты,
+                которые показывают основные глаголы в динамике.
+                Это 110 сюжетов с основными действиями (глаголами)
+                в самых различных ситуациях. Малыш увидит на экране реально совершаемое действие!</p>
+        </div>
+        <div class="col-md-5">
+            <img id="start_glagoliki_intro_video" class="featurette-image img-responsive center-block" src="static/intro_manual_pics/intro-video.png" width="100%">
+        </div>
+    </div>
+
+    <hr class="featurette-divider">
+
+    <div class="row featurette">
+        <div class="col-md-7 col-md-push-5">
+            <h2 class="featurette-heading">Пиктограммы</h2>
+            <p class="featurette-lead">
+                К пособию прилагается визуальная опора.
+                К каждому из глаголов нарисована пиктограмма,
+                которая поможет запомнить его название и не путать его
+                с близким по значению словом. Подробно об использовании визуальных опор читайте в инструкции.
+            </p>
+        </div>
+        <div class="col-md-5 col-md-pull-7">
+            <img class="featurette-image img-responsive center-block" src="static/intro_manual_pics/intro-helper-pics.png" width="100%">
+        </div>
+    </div>
+
+    <hr class="featurette-divider">
+
+    <div class="row featurette">
+        <div class="col-md-7">
+            <h2 class="featurette-heading">Фильтры</h2>
+            <p class="featurette-lead">
+                В пособии представлена система фильтров, которая позволяет постепенно организовать
+                материал по принципу «от простого к сложному» и плавно увеличивать сложность материала,
+                отталкиваясь от потребностей конкретного ребенка.
+
+                Вы сможете показывать одно и то же действие в разных ситуациях –
+                это приучит ребенка запоминать, а не угадывать глагол по контексту (если «морковка» - значит «ест»).
+
+                Вы сможете постепенно добавлять все новые глаголы и по своему желанию перемешивать их между собой.
+
+                Подробно о вариантах поступательного усложнения материала читайте в инструкции.
+            </p>
+        </div>
+        <div class="col-md-5">
+            <img class="featurette-image img-responsive center-block featurette-screenshot" src="static/intro_manual_pics/intro-filter.png" width="100%">
+        </div>
+    </div>
+
+    <hr class="featurette-divider">
+
+    <div class="row featurette">
+        <div class="col-md-7 col-md-push-5">
+            <h2 class="featurette-heading">Автоматическая оценка</h2>
+            <p class="featurette-lead">
+                В пособии моментальная автоматическая система оценки.
+                После завершения каждой сессии программа подсчитывает количество верных/неверных ответов и ответов,
+                которые были даны с подсказкой, в процентах.
+                Это позволит вам отслеживать и фиксировать динамику запоминания глагола.
+            </p>
+        </div>
+        <div class="col-md-5 col-md-pull-7">
+            <div class="featurette-screenshot" style="padding:30px">
+                <p class="lead">
+                <span>
+                    Правильно: <span class="label label-success">75%</span>
+                </span><br/>
+                <span>
+                    С подсказкой: <span  class="label label-warning">15%</span>
+                </span><br/>
+                <span>
+                    Неправильно: <span  class="label label-danger">10%</span>
+                </span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <hr class="featurette-divider">
+
+    <div class="row featurette">
+        <div class="col-md-7">
+            <h2 class="featurette-heading">Поощрения</h2>
+            <p class="featurette-lead">
+                По завершении одной сессии обучения
+                (количество сюжетов, которые демонстрируются за один раз, вы можете регулировать в настройках)
+                ребенок увидит небольшое “поощрительное видео” – яркий 30 секундный фрагмент.
+                «Видеопризы» вы сами можете выбирать в настройках.
+            </p>
+        </div>
+        <div class="col-md-5">
+            <img id="start_glagoliki_intro_reward" class="featurette-image img-responsive center-block" src="static/intro_manual_pics/intro-award.png" width="100%">
+        </div>
+    </div>
+
+
+
+    <hr class="featurette-divider">
+</div>
+
+
+            </div>
+
+            
+
+            <div role="tabpanel" class="tab-pane fade" id="block_instructions">
+
+                <div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 sidebar">
+            <ul class="nav nav-sidebar">
+                <li><a data-scroll href="#kak_rabotat">Как работать?</a></li>
+                <li>
+                    <a data-scroll href="#tri_urovnya">Три уровня сложности</a>
+                </li>
+                <li>
+                    <a data-scroll href="#bumajnye_materialy">Бумажные материалы</a>
+                </li>
+                <li><a data-scroll href="#podgotovka">Подготовка</a></li>
+                <li>
+                    <a data-scroll href="#vypolnenie">Выполнение</a>
+                    <ul class="nav sub_nav_list">
+
+                        <li>
+                            <a data-scroll href="#vypolnenie_level1">Уровень 1</a>
+                        </li>
+                        <li>
+                            <a data-scroll href="#vypolnenie_level2">Уровень 2</a>
+                        </li>
+                        <li>
+                            <a data-scroll href="#vypolnenie_level3">Уровень 3</a>
+                        </li>
+
+                    </ul>
+                </li>
+
+
+                <li><a data-scroll href="#zavershenie">Завершение</a></li>
+            </ul>
+
+        </div>
+        <div class="col-sm-9 col-sm-offset-3">
+
+            <span class="anchor" id="kak_rabotat"></span>
+            <h1 class="page-header">Как работать?</h1>
+            <p class="lead">
+                В том, как разобраться в меню, понять, какая кнопочка что обозначает и как устроено пособие,  вам поможет это видео.
+                На оставшиеся вопросы мы ответим здесь.
+            </p>
+
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/D_qbnANEt6k" frameborder="0" allowfullscreen></iframe>
+
+            
+<div class="bs-callout bs-callout-warning" id="callout-badges-ie8-empty">
+    <h4><span class="fa fa-flash"></span> Требования к компьютеру</h4>
+    Эта программа содержит сотни качественных видеороликов, и на старых компьютерах они могут проигрываться с задержкой.
+</div>
+
+
+<div class="bs-callout bs-callout-warning" id="callout-badges-ie8-empty">
+    <h4>Эта программа не работает в браузере Internet Explorer!</h4>
+    Рекомендуем скачать для неё браузер <a href="https://www.google.ru/chrome/browser/desktop/" target="_blank">Google Chrome</a>.
+</div>
+
+<div class="bs-callout bs-callout-info" id="callout-badges-ie8-empty">
+    <h4>Если вы запутались в настройках программы:</h4>
+    Просто закройте ее и откройте заново, и все настройки сбросятся.
+</div>
+
+
+            <span class="anchor" id="tri_urovnya"></span>
+            <h2 class="sub-header">Три уровня сложности</h2>
+            <p>
+                В «Глаголиках»  три уровня сложности. Выберите тот, с которого «стартуете» вы:
+            </p>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <b>На первом уровне</b> – мы используем максимальное количество подсказок:
+                    это написанное на мониторе слово,  пиктограмма, которая отображается на мониторе, и вырезанные
+                    карточки с пиктограммой, которые нужно положить на стол перед ребенком.
+                    Если ваш ребенок не умеет читать и написанное слово не является для него подсказкой
+                    - вы можете стартовать сразу со второго уровня.
+                </div>
+                <div class="col-sm-6">
+                    <img class="elevated_border" width="100%" src="static/intro_manual_pics/manual1.png">
+                </div>
+            </div>
+
+            <br/>
+            <div class="row">
+                <div class="col-sm-6">
+                    <b>На втором уровне</b> – в роли подсказки используется пиктограмма,
+                    которая отображается на мониторе, и вырезанные из альбома несколько
+                    карточек с  пиктограммами, которые нужно положить на стол перед ребенком.
+                </div>
+                <div class="col-sm-6">
+                    <img class="elevated_border" width="100%" src="static/intro_manual_pics/manual2.png">
+                </div>
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col-sm-6">
+                    <b>На третьем уровне</b> на экране остается только видеосюжет, также – на столе перед ребенком –
+                    помещено несколько  карточек с  пиктограммой.
+                </div>
+                <div class="col-sm-6">
+                    <img class="elevated_border" width="100%" src="static/intro_manual_pics/manual3.png">
+                </div>
+            </div>
+
+            <br/>
+            <p>
+                Каждый изучаемый
+                глагол «проводится» по трем уровням. После того как ребенок в 100 % случаев подает вам правильную пиктограмму и,
+                указывая на нее, верно называет глагол, вы можете переходить к изучению следующего глагола.
+            </p>
+            <p>
+                Когда ребенок выучил два глагола работу следует продолжать в двух направлениях:
+
+            </p>
+            <ul>
+                <li>
+                    С одной стороны – набирать новые глагольные значения.
+                </li>
+                <li>
+                    С другой стороны – учиться различать уже выученные глаголы между собой.
+                </li>
+            </ul>
+            <p>
+                Работу по различению глаголов рекомендовано проводить на третьем уровне
+                (хотя программа и позволяет перемешивать глаголы между собой на любом из уровней).
+                И вот почему:
+            </p>
+            <ul>
+                <li>
+                    Если различаемы ребенком пиктограммы будут подписаны
+                    (1 уровень), он будет читать тот или иной глагол, а не припоминать его.
+                </li>
+                <li>
+                    Или, если рядом с глаголом на экране будет автоматически отображаться
+                    та или иная верная пиктограмма (2 уровень) –
+                    он будет подбирать картинку на столе не из памяти, а ориентируясь на образцы.
+
+                </li>
+            </ul>
+            <p>
+                Ни в первом, ни во втором случае это не гарантирует запоминания смысла глагола.
+                <b>Помните. Первый и второй уровни – подготовительные. </b>
+                Основная работа над различением глагольных значений ведется на уровне №3.
+            </p>
+
+            <span class="anchor" id="bumajnye_materialy"></span>
+            <h2 class="sub-header">Бумажные материалы</h2>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <p>
+                        <b>Альбом для запоминания</b> – позволит вам повторять названия уже выученных глаголов.
+                        Перелистывайте страницу за страницей и вспоминайте! А еще альбом можно раскрашивать!
+                    </p>
+                    <p>
+                        <b>Кубик с пиктограммами</b> через некоторое время заменит вам маленькие карточки на столе.
+                        Пусть ребенок вертит кубик и выбирает нужное значение.
+                    </p>
+                </div>
+                <div class="col-sm-6">
+                    <img class="elevated_border" width="100%" src="static/intro_manual_pics/manual4_albom.jpg">
+                </div>
+            </div>
+
+
+
+
+
+            <span class="anchor" id="podgotovka"></span>
+            <h2>
+                Подготовка
+            </h2>
+            <p>
+
+    С помощью фильтров выберите глагол, который будете изучать.
+    К примеру, это глагол «ест».
+</p>
+<img src="static/intro_manual_pics/manual5_filter.png" width="50%" class="elevated_border">
+<br/>
+<br/>
+<p>
+
+    Из раздела «настройки» вы подбираете нужное вам количество заданий для одной сессии.
+    Количество варьируется от 3-30.  Если вашему ребенку пока трудно долго удерживать внимание –
+    выбирайте немного заданий. Стандартное стартовое количество – 10 заданий в сессии.
+    Если малыш за 10 сюжетов только «входит во вкус» - увеличивайте количество по своему усмотрению.
+    Выбранное вами количество останется в настройках «по умолчанию» для всех последующих сессий ,
+    пока вы не решите изменить его.
+</p>
+<p>
+    Вырежьте из альбома карточки пиктограмм
+    и положите пиктограмму «ест» на стол около ребенка.
+</p>
+<img src="static/intro_manual_pics/manual12_kartochka_est.png" class="elevated_border" width="30%">
+<p>
+    Ура! Можно начинать!
+</p>
+
+
+            <span class="anchor" id="vypolnenie"></span>
+            <h2> Выполнение </h2>
+
+            <span class="anchor" id="vypolnenie_level1"></span>
+            <h3 class="sub-header">Уровень 1</h3>
+            <ol>
+                <li>
+                    Включите ребенку живую картинку. Через несколько секунд укажите на пиктограмму на экране
+                    и назовите действие одним словом: «Ест». Потом поднимите со стола  пиктограмму
+                    и  укажите на нее пальцем.    <br/>
+                    Нажмите <button class="btn btn-default btn-xs red">Неправильно</button>, т.к. ребенок пока не назвал глагол (хотя на этом уровне мы и не ждем, что он его назовет).
+
+                    <div class="bs-callout bs-callout-info" id="callout-badges-ie8-empty">
+    <p>
+        Если ребенок не может оторваться от «движущейся картинки» или она движется слишком быстро -
+        нажмите на кнопку <button class="btn btn-default btn-xs"><span class="fa fa-repeat"></span></button> , она остановит фрагмент.
+        Если вы хотите возобновить движение на картинке - нажмите на кнопку
+        <button class="btn btn-default btn-xs"><span class="fa fa-repeat"></span></button> (запустить зацикливание снова)
+        или <button class="btn btn-default btn-xs"><span class="fa fa-play"></span></button> (проиграть фрагмент единожды).
+    </p>
+</div>
+                    <div class="bs-callout bs-callout-info" id="callout-badges-ie8-empty">
+    <h4>Важно:</h4>
+    <p>
+        Называйте глагол одним словом, а не предложением.
+        Избегайте вводных слов: «это…», «вот…». Единственное, что должно звучать, – глагол.
+    </p>
+</div>
+
+                </li>
+                <li>
+                    Еще несколько раз демонстрируйте видео, четко называя их.
+                    В тот момент, когда вы называете глагол, поднимите со стола  пиктограмму и
+                    укажите на нее пальцем.   Задача на этом уровне состоит в том, чтобы ребенок понял
+                    технологию выполнения упражнения: он смотрит на видео, вы берете пиктограмму со стола,
+                    указываете на нее и называете.
+                    <br/>
+                    Нажмите <button class="btn btn-default btn-xs red">Неправильно</button>, т.к. ребенок пока не назвал глагол (хотя на этом уровне мы и не ждем, что он его назовет).
+                    Нажмите <button class="btn btn-default btn-xs orange">С подсказкой</button>, если ребенок назвал глагол вместе с вами.
+                </li>
+                <li>
+                    После того как ребенок привыкнет к ходу выполнения задания
+                    (обычно это происходит на 4 или 5 раз), побудите его самостоятельно
+                    поднять карточку с пиктограммой и указать на нее. После этого назовите глагол.
+                    <br/>
+                    Нажмите <button class="btn btn-default btn-xs red">Неправильно</button>, если ребенок не назвал глагол.
+                    Нажмите <button class="btn btn-default btn-xs orange">С подсказкой</button>, если ребенок назвал глагол вместе с вами.
+                </li>
+                <li>
+                    После того, как ребенок после просмотра видео стабильно поднимает карточку
+                    и указывает на нее пальцем, побудите его назвать глагол самостоятельно.
+                    Можно использовать подсказки. Подсказки приведены в последовательности
+                    от сильной к слабой:
+                    <ul>
+                        <li>
+                            указание на подпись;
+                        </li>
+                        <li>
+                            первый звук, с которого начинается глагол;
+                        </li>
+                        <li>
+                            «синкопированный вдох» (для этого, указав на пиктограмму,
+                            нужно шумно взять воздух, как будто вы собираетесь что-то сказать);
+                        </li>
+                        <li>
+                            выразительный взгляд, который намекнет, что вы чего-то ждете.
+                        </li>
+                    </ul>
+
+                    <div class="bs-callout bs-callout-info" id="callout-badges-ie8-empty">
+    <h4>Важно:</h4>
+    <p>
+        Советуем вам избегать вопроса «Что делает?» в качестве подсказки,
+        потому что высока вероятность, что ребенок просто повторит ваш вопрос.
+        Вторая опасность – что он будет называть действие только в ответ на ваш вопрос.
+        Если инструкция «Что делает?» уже активно используется вами,
+        вы можете ввести ее на первых порах, нужно как можно быстрее от нее отходить.
+    </p>
+
+</div>
+
+                    Нажмите <button class="btn btn-default btn-xs orange">С подсказкой</button>, если ребенок назвал глагол вместе с вами.
+                    В следующем сюжете уменьшайте подсказку.
+                    Нажмите <button class="btn btn-default btn-xs red">Неправильно</button>, если ребенок не назвал глагол.
+
+                    <div>
+                        <div class="bs-callout bs-callout-info" id="callout-badges-ie8-empty">
+    <h4>Важно:</h4>
+    <p>
+        Если  вы будете нажимать кнопки оценки – программа посчитает вам количество
+        верных ответов, ответов, данных с подсказкой и неверных ответов в процентах.
+        Если вы не хотите считать правильные и неправильные ответы –
+        вы можете нажимать кнопки <button class="btn btn-default btn-xs"><span class="fa fa-backward"></span> </button>
+        и <button class="btn btn-default btn-xs"><span class="fa fa-forward"></span> </button> .
+        Также кнопку <button class="btn btn-default btn-xs"><span class="fa fa-backward"></span> </button>
+        можно нажимать, если вы хотите повторно показать видео.
+        Будьте внимательны – если вы оцените ответ второй раз, программа автоматически
+        увеличит количество предложений в сессии. Если не учитывать этого,
+        результаты в процентах будут ошибочными.
+    </p>
+
+</div>
+                    </div>
+                </li>
+                <li>
+                    Когда ребенок стабильно начнет самостоятельно называть действие с визуальной подсказкой,
+                    отходите от нее. Это можно сделать, перейдя на следующий уровень.
+                </li>
+            </ol>
+
+
+            <span class="anchor" id="vypolnenie_level2"></span>
+            <h3 class="sub-header">Уровень 2</h3>
+            <div class="bs-callout bs-callout-info" id="callout-badges-ie8-empty">
+                <h4>Важно:</h4>
+                дети, которые не умеют читать и не запоминают слова глобально, «стартуют» с этого уровня.
+                По этой причине мы также подробно расскажем технологию введения значения глагола,
+                как и на предыдущем уровне.
+                Если вы перешли ко второму  уровню  с первого –  начинайте работать с пункта №4.
+            </div>
+
+
+            <ol>
+    <li>
+        Включите ребенку живую картинку. Через несколько секунд укажите на пиктограмму на экране
+        и назовите действие одним словом: «Ест». Потом поднимите со стола  пиктограмму
+        и  укажите на нее пальцем.    <br/>
+        Нажмите <button class="btn btn-default btn-xs red">Неправильно</button>, т.к. ребенок пока не назвал глагол (хотя на этом уровне мы и не ждем, что он его назовет).
+
+        <div class="bs-callout bs-callout-info" id="callout-badges-ie8-empty">
+    <p>
+        Если ребенок не может оторваться от «движущейся картинки» или она движется слишком быстро -
+        нажмите на кнопку <button class="btn btn-default btn-xs"><span class="fa fa-repeat"></span></button> , она остановит фрагмент.
+        Если вы хотите возобновить движение на картинке - нажмите на кнопку
+        <button class="btn btn-default btn-xs"><span class="fa fa-repeat"></span></button> (запустить зацикливание снова)
+        или <button class="btn btn-default btn-xs"><span class="fa fa-play"></span></button> (проиграть фрагмент единожды).
+    </p>
+</div>
+        <div class="bs-callout bs-callout-info" id="callout-badges-ie8-empty">
+    <h4>Важно:</h4>
+    <p>
+        Называйте глагол одним словом, а не предложением.
+        Избегайте вводных слов: «это…», «вот…». Единственное, что должно звучать, – глагол.
+    </p>
+</div>
+
+    </li>
+    <li>
+        Еще несколько раз демонстрируйте видео, четко называя их.
+        В тот момент, когда вы называете глагол, поднимите со стола  пиктограмму и
+        укажите на нее пальцем.  Задача этого уровня в том, чтобы ребенок понял
+        технологию выполнения упражнения: он смотрит на видео, вы берете пиктограмму со стола,
+        указываете на нее и называете.
+        <br/>
+        Нажмите <button class="btn btn-default btn-xs red">Неправильно</button>, т.к. ребенок пока не назвал глагол (хотя на этом уровне мы и не ждем, что он его назовет).
+        Нажмите <button class="btn btn-default btn-xs orange">С подсказкой</button>, если ребенок назвал глагол вместе с вами.
+    </li>
+    <li>
+        После того как ребенок привыкнет к ходу выполнения задания
+        (обычно это происходит на 4 или 5 раз), побудите его самостоятельно
+        поднять карточку с пиктограммой и указать на нее. После этого назовите глагол.
+        <br/>
+        Нажмите <button class="btn btn-default btn-xs red">Неправильно</button>, если ребенок не назвал глагол.
+        Нажмите <button class="btn btn-default btn-xs orange">С подсказкой</button>, если ребенок назвал глагол вместе с вами.
+
+    </li>
+    <li>
+        После того как ребенок после просмотра видео стабильно поднимает карточку
+        и указывает на нее пальцем, слушая, как вы называете его
+        (или прочитывая его название на уровне 1)
+        побудите его назвать глагол самостоятельно. Можно использовать подсказки:
+        <ul>
+            <li>
+                указание на пиктограмму на экране;
+            </li>
+            <li>
+                первый звук, с которого начинается глагол;
+            </li>
+            <li>
+                «синкопированный вдох» (для этого, указав на пиктограмму,
+                нужно шумно взять воздух, как будто вы собираетесь что-то сказать);
+            </li>
+            <li>
+                выразительный взгляд, который намекнет, что вы чего-то ждете.
+            </li>
+        </ul>
+
+        <div class="bs-callout bs-callout-info" id="callout-badges-ie8-empty">
+    <h4>Важно:</h4>
+    <p>
+        Советуем вам избегать вопроса «Что делает?» в качестве подсказки,
+        потому что высока вероятность, что ребенок просто повторит ваш вопрос.
+        Вторая опасность – что он будет называть действие только в ответ на ваш вопрос.
+        Если инструкция «Что делает?» уже активно используется вами,
+        вы можете ввести ее на первых порах, нужно но как можно быстрее от нее отходить.
+    </p>
+
+</div>
+
+        Нажмите <button class="btn btn-default btn-xs orange">С подсказкой</button>, если ребенок назвал глагол вместе с вами.
+        В следующем сюжете уменьшайте подсказку.
+        Нажмите <button class="btn btn-default btn-xs red">Неправильно</button>, если ребенок не назвал глагол.
+
+        <div>
+            <div class="bs-callout bs-callout-info" id="callout-badges-ie8-empty">
+    <h4>Важно:</h4>
+    <p>
+        Если  вы будете нажимать кнопки оценки – программа посчитает вам количество
+        верных ответов, ответов, данных с подсказкой и неверных ответов в процентах.
+        Если вы не хотите считать правильные и неправильные ответы –
+        вы можете нажимать кнопки <button class="btn btn-default btn-xs"><span class="fa fa-backward"></span> </button>
+        и <button class="btn btn-default btn-xs"><span class="fa fa-forward"></span> </button> .
+        Также кнопку <button class="btn btn-default btn-xs"><span class="fa fa-backward"></span> </button>
+        можно нажимать, если вы хотите повторно показать видео.
+        Будьте внимательны – если вы оцените ответ второй раз, программа автоматически
+        увеличит количество предложений в сессии. Если не учитывать этого,
+        результаты в процентах будут ошибочными.
+    </p>
+
+</div>
+        </div>
+
+    </li>
+    <li>
+        Уходите от подсказок.
+        <div class="bs-callout bs-callout-info" id="callout-badges-ie8-empty">
+    <h4>Важно:</h4>
+    Заранее выберите видеопризы. Некоторые дети – любят поезда, а другие – нет.
+    Кто-то в восторге от воды, а кто-то боится ее панически.
+    Поэтому обязательно выберите видеопризы заранее.
+    Если вы не сделаете, программа будет произвольно показывать все имеющиеся сюжеты.
+</div>
+    </li>
+</ol>
+
+
+            <span class="anchor" id="vypolnenie_level3"></span>
+            <h3 class="sub-header">Уровень 3: Различение  глагольных значений</h3>
+            <p>
+                Единственная опора, которая остается на этом уровне: пиктограмма на столе.
+                Если ребенок самостоятельно называет действие, поднимая пиктограмму, мы считаем,
+                что ответ правильный, и нажимаем <button class="btn btn-default btn-xs green">Правильно</button>.
+            </p>
+
+            <p>
+                Подготовка и ход работы такие же, как на уровнях 1,2.
+            </p>
+            <p>
+                После того как ребенок дает 100% правильных ответов, называя один глагол, переходите к изучению следующего глагола, действуя по той же технологии.
+                После того как ребенок дает 100% правильных ответов на первый и второй глагол, продолжайте работу в двух направлениях.
+            </p>
+            <ol>
+                <li>
+                    Увеличивайте количество глаголов по технологии, которая приведена выше;
+                </li>
+                <li>
+                    Учите ребенка дифференцировать значения глаголов между собой, перейдя на следующий уровень.
+                </li>
+            </ol>
+
+
+            <h5>Различение  глагольных значений</h5>
+
+            <ol>
+                <li>
+    Выберите в фильтре два глагола, значение которых вы будете изучать. Выложите перед ребенком на стол две пиктограммы к изучаемым глаголам.
+    <div class="bs-callout bs-callout-info" id="callout-badges-ie8-empty">
+    <h4>Важно:</h4>
+    <p>
+        Советуем вам избегать вопроса «Что делает?» в качестве подсказки,
+        потому что высока вероятность, что ребенок просто повторит ваш вопрос.
+        Вторая опасность – что он будет называть действие только в ответ на ваш вопрос.
+        Если инструкция «Что делает?» уже активно используется вами,
+        вы можете ввести ее на первых порах, нужно но как можно быстрее от нее отходить.
+    </p>
+
+</div>
+</li>
+<li>
+    Включите ребенку живую картинку.
+    Учтите, что он еще не выполнял задания на различение глагольных значений и может запутаться.
+    Поэтому необходимо дать ему максимальное количество помощи: поднимите правильную пиктограмму
+    и назовите ее.
+
+
+    
+        Для читающих детей начинайте работу с подписанными сюжетами,
+        чтобы увеличить количество помощи.
+    
+
+    <br/>
+    Нажмите <button class="btn btn-default btn-xs red">Неправильно</button>, если ребенок не назвал глагол.
+    Нажмите <button class="btn btn-default btn-xs orange">С подсказкой</button>, если ребенок назвал глагол вместе с вами.
+
+</li>
+<li>
+    Включите следующую картинку (пролистав, если требуется,  до второго глагола)
+    и точно так же выберите пиктограмму и назовите ее самостоятельно.
+    Нажмите <button class="btn btn-default btn-xs red">Неправильно</button>, если ребенок не назвал глагол.
+    Нажмите <button class="btn btn-default btn-xs orange">С подсказкой</button>, если ребенок назвал глагол вместе с вами.
+</li>
+<li>
+    Научите  ребенка правильно подавать нужную карточку,
+    по необходимости оказывая ему физическую помощь.
+    Как можно быстрее уходите от физической подсказки.
+    На первых порах называйте глагол самостоятельно, постепенно уменьшая подсказку.
+    Постепенно переходите к более слабым подсказкам.
+    На этом этапе наша цель – чтобы ребенок понял,
+    что теперь от него требуется выбирать один из двух глаголов.
+    <br/>
+    Как можно подсказать:
+    <ul>
+        <li>
+            назвать слово;
+        </li>
+        <li>
+            назвать первый звук, с которого начинается глагол;
+        </li>
+        <li>
+            «синкопированный вдох», (для этого, указав на пиктограмму, нужно шумно взять воздух,
+            как будто вы собираетесь что-то сказать)
+        </li>
+        <li>
+            выразительный взгляд, который намекнет ребенку, что вы чего-то от него ждете.
+        </li>
+    </ul>
+</li>
+<li>
+    Сведите все подсказки на нет, уменьшая их.
+    Помните, что к моменту различения глагольных значений ребенок должен хорошо знать название глагола.
+    Если вы долго не можете уйти от подсказок и ребенок упорно делает ошибки –
+    значит, вы недоучили каждое конкретное значение глагола, и вам стоит вернуться на уровень выше.
+    <br/>
+    Не забывайте фиксировать результаты обучения – это поможет вам анализировать,  на верном ли вы пути.
+
+</li>
+<li>
+    Увеличивайте количество глаголов, которые различаете.
+    Начиная с 6 глаголов заменяйте маленькие пиктограммы на столе кубиком с пиктограммами.
+    <br/>
+    <div class="row">
+        <div class="col-sm-6">
+            <img src="static/intro_manual_pics/manual10_kubiki.jpg" width="100%" class="elevated_border">
+
+        </div>
+        <div class="col-sm-6">
+            <img src="static/intro_manual_pics/manual11_razvertka.png" width="100%" class="elevated_border">
+        </div>
+    </div>
+
+    
+<div class="bs-callout bs-callout-warning" id="callout-badges-ie8-empty">
+    Удобно вводить глаголы в  последовательности, в которой они скомпонованы на кубиках.
+    Тогда после того, как вы освоите различение первых
+    6 глаголов, вы сможете использовать не 6 отдельных карточек пиктограмм, а один кубик.
+    Ребенок будет искать нужную пиктограмму, вращая кубик, и указывать на нужную по обычному принципу.
+    Это упростит вашу подготовку к занятию.
+</div>
+<div class="bs-callout bs-callout-warning" id="callout-badges-ie8-empty">
+
+    <h4>Как дополнительно учить названия пиктограмм?</h4>
+    <ul>
+        <li>
+            Играть в “мемори” с перевернутыми вверх рубашкой парами пиктограмм.
+        </li>
+        <li>
+            Листая с ребенком альбом для запоминания, в котором нарисованы все пиктограммы.
+        </li>
+    </ul>
+</div>
+
+</li>
+                <li>
+                    Начиная с 6 выученных пиктограмм, вводите вопрос: «Что делает?».
+                    Для этого играйте с кубиком. Пусть ребенок кинет кубик. Покажите на сторону,
+                    которая выпала, и спросите: «Что делает?»
+                    <br/>Задавайте этот вопрос, листая альбом для запоминания.
+                    <br/>Со временем начните задавать вопрос: «Что делает?», демонстрируя видеосюжеты.
+
+                </li>
+            </ol>
+
+            <span class="anchor" id="zavershenie"></span>
+            <h2>
+                Завершение
+            </h2>
+            <p>
+                Когда ребенок выполнит заданное вами в настройках  количество заданий, на экране появится видеоприз.
+                Поощрительное видео будет появляться в конце сессии при любом результате ребенка.
+                Для вас это время – возможность записать его результат в протокол обучения.
+            </p>
+            <p>
+                Всего программа содержит около 20 вариантов видеопризов.
+                Выбрать призы, которые будут демонстрироваться вы можете в настройках.
+            </p>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="bs-callout bs-callout-info" id="callout-badges-ie8-empty">
+    <h4>Важно:</h4>
+    Заранее выберите видеопризы. Некоторые дети – любят поезда, а другие – нет.
+    Кто-то в восторге от воды, а кто-то боится ее панически.
+    Поэтому обязательно выберите видеопризы заранее.
+    Если вы не сделаете, программа будет произвольно показывать все имеющиеся сюжеты.
+</div>
+                    
+<div class="bs-callout bs-callout-warning" id="callout-badges-ie8-empty">
+    <h4>Важно:</h4>
+    Если вы не будете оценивать результат ребенка и будете просто листать видеофрагменты,
+    пользуясь клавишами <button class="btn btn-default btn-xs"><span class="fa fa-backward"></span> </button>
+        и <button class="btn btn-default btn-xs"><span class="fa fa-forward"></span> </button>, – видеоприз появляться не будет.
+
+</div>
+
+                </div>
+                <div class="col-sm-6">
+                    <img src="static/intro_manual_pics/manual6_prizy.png" width="100%" class="elevated_border">
+                </div>
+
+            </div>
+
+
+
+
+            <hr/>
+            <h3>
+                Так работает пособие «Глаголики». Желаем вам приятного обучения!
+            </h3>
+            <p>
+
+                Если вы хотите дальше расширять словарь глаголов и учить малыша составлять простые предложения
+                – используйте серию «Живые фразы». Информация о серии – на нашем сайте.
+            </p>
+        </div>
+    </div>
+</div>
+
+
+
+
+            </div>
+
+            
+
+            <div role="tabpanel" class="tab-pane fade" id="work_area">
+
+                <div class="row" id="all_controls">
+                    <div class="col-sm-3">
+                        <ul class="nav nav-pills nav-stacked">
+                            <li role="presentation" class="active"><a href="#level1" data-toggle="tab" onclick="set_phrase1_level(1)">
+
+                                Уровень 1
+
+
+
+
+                            </a></li>
+                            <li role="presentation"><a href="#level2" data-toggle="tab" onclick="set_phrase1_level(2)">
+                                Уровень 2
+
+
+
+
+                            </a></li>
+                            <li role="presentation"><a href="#level3" data-toggle="tab" onclick="set_phrase1_level(3)">
+                                Уровень 3
+
+                            </a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane fade in active" id="level1">
+                                На уровне 1 максимальное количество подсказок: глаголы отображаются с пиктограммой и с подписью.
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="level2">
+                                На уровне 2 отображаются глаголы с пиктограммой, но уже без подписи.
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="level3">
+                                На уровне 3 отображаются глаголы без пиктограмм и без подписей. Единственная опора,
+                                которая должна остаться на этом уровне - это пиктограмма,
+                                которая лежит перед ребенком на столе.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="dropdown_header_div">
+                            <button class="btn btn-default" data-toggle="collapse" data-target="#action_list">
+                                Выбрать глаголы  <span class="caret"></span>
+                            </button>
+                        </div>
+                        <div id="action_list" class="collapse">
+                            
+                                <input type="hidden" id="action_88">
+                                <button class="btn btn-default btn-xs btn_selector" data-input_id="action_88">
+                                    бежит
+                                </button>
+                            
+                                <input type="hidden" id="action_72">
+                                <button class="btn btn-default btn-xs btn_selector" data-input_id="action_72">
+                                    ест
+                                </button>
+                            
+                                <input type="hidden" id="action_95">
+                                <button class="btn btn-default btn-xs btn_selector" data-input_id="action_95">
+                                    играет
+                                </button>
+                            
+                                <input type="hidden" id="action_89">
+                                <button class="btn btn-default btn-xs btn_selector" data-input_id="action_89">
+                                    летит
+                                </button>
+                            
+                                <input type="hidden" id="action_92">
+                                <button class="btn btn-default btn-xs btn_selector" data-input_id="action_92">
+                                    падает
+                                </button>
+                            
+                                <input type="hidden" id="action_90">
+                                <button class="btn btn-default btn-xs btn_selector" data-input_id="action_90">
+                                    плывет
+                                </button>
+                            
+                                <input type="hidden" id="action_94">
+                                <button class="btn btn-default btn-xs btn_selector" data-input_id="action_94">
+                                    прыгает
+                                </button>
+                            
+                                <input type="hidden" id="action_74">
+                                <button class="btn btn-default btn-xs btn_selector" data-input_id="action_74">
+                                    пьет
+                                </button>
+                            
+                                <input type="hidden" id="action_93">
+                                <button class="btn btn-default btn-xs btn_selector" data-input_id="action_93">
+                                    смеется
+                                </button>
+                            
+                                <input type="hidden" id="action_87">
+                                <button class="btn btn-default btn-xs btn_selector" data-input_id="action_87">
+                                    спит
+                                </button>
+                            
+                                <input type="hidden" id="action_91">
+                                <button class="btn btn-default btn-xs btn_selector" data-input_id="action_91">
+                                    танцует
+                                </button>
+                            
+                            <br/>
+                            <a href="#" class="clear_filter">Сбросить фильтр</a>
+
+                        </div>
+                        <button class="btn btn-lg btn-success" id="video_start_btn">
+                            <span class="glyphicon glyphicon-play"></span>
+                            Старт!
+                        </button>
+                    </div>
+                </div>
+
+
+
+                <hr>
+                <div class="row" id="video_block">
+
+
+    <div class="col-sm-8">
+
+        <div align="center" style="height: 500px;">
+
+            <video id="video_player" autoplay loop preload="">
+                <source id="video_player_source" src="" type="video/mp4" />
+            </video>
+
+            <h2 id="video_caption"></h2>
+        </div>
+
+    </div>
+    <div class="col-sm-4">
+        <div id="video_controls">
+            <table width="100%">
+                <tr>
+                    <td width="30%">
+                        <button id="video_prev_btn" class="btn btn-default" data-toggle="tooltip" title="назад">
+                            <span class="fa fa-backward"></span>
+                        </button>
+                        <button id="video_next_btn" class="btn btn-default" data-toggle="tooltip" title="вперед">
+                            <span class="fa fa-forward"></span>
+                        </button>
+                    </td>
+                    <td align="center" width="50%">
+
+
+
+
+                        <button id="video_play_btn" class="btn btn-default" data-toggle="tooltip" title="проиграть 1 раз">
+                            <span class="fa fa-play"></span>
+                        </button>
+                        <button id="video_loop_btn" class="btn btn-default" data-toggle="tooltip" title="проигрывать бесконечно">
+                            <span class="fa fa-repeat"></span>
+                        </button>
+                    </td>
+                    <td align="right">
+
+                        <button id="video_display_name_btn" class="btn btn-default" data-toggle="tooltip" title="подсказка">
+                            <span class="fa fa-question"></span>
+                        </button>
+                    </td>
+                </tr>
+            </table>
+
+
+        </div>
+        <hr/>
+        <div id="video_score_buttons">
+
+            <button class="btn btn-default green" data-score="correct">Правильно</button>
+            <button class="btn btn-default orange" data-score="correct_with_hint">С подсказкой</button>
+            <button class="btn btn-default red" data-score="incorrect">Неправильно</button>
+        </div>
+        <div id="video_index"></div>
+        <div align="center">
+            <img id="helper_picture" src="" style="max-height: 300px; max-width:100%">
+        </div>
+
+
+        <div id="sequence_list"></div>
+    </div>
+
+
+</div>
+
+            </div>
+
+
+
+            
+
+            <div role="tabpanel" class="tab-pane fade" id="settings">
+
+                <div class="row">
+    <div class="col-sm-6">
+        <h3>Поощрения</h3>
+        <p>
+            Выберите видеоролики-поощрения. Эти ролики будут показываться ребенку, по одному ролику
+            в конце каждой сессии.
+        </p>
+        
+
+
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" class="video_reward_checkbox" checked data-filename="attrakcioni.mp4"> Аттракционы
+                </label>
+                <span class="fa fa-play preview_reward_icon"></span>
+            </div>
+        
+
+
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" class="video_reward_checkbox" checked data-filename="flag.mp4"> Развевающийся флаг
+                </label>
+                <span class="fa fa-play preview_reward_icon"></span>
+            </div>
+        
+
+
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" class="video_reward_checkbox" checked data-filename="komety.mp4"> Кометы
+                </label>
+                <span class="fa fa-play preview_reward_icon"></span>
+            </div>
+        
+
+
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" class="video_reward_checkbox" checked data-filename="ogonki_na_elke.mp4"> Огоньки на ёлке
+                </label>
+                <span class="fa fa-play preview_reward_icon"></span>
+            </div>
+        
+
+
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" class="video_reward_checkbox" checked data-filename="ogonki_v_parke.mp4"> Огоньки в парке
+                </label>
+                <span class="fa fa-play preview_reward_icon"></span>
+            </div>
+        
+
+
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" class="video_reward_checkbox" checked data-filename="stariy_avtomobil.mp4"> Старый автомобиль
+                </label>
+                <span class="fa fa-play preview_reward_icon"></span>
+            </div>
+        
+
+
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" class="video_reward_checkbox" checked data-filename="zakat.mp4"> Закат
+                </label>
+                <span class="fa fa-play preview_reward_icon"></span>
+            </div>
+        
+
+
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" class="video_reward_checkbox" checked data-filename="gonki.mp4"> Гонки
+                </label>
+                <span class="fa fa-play preview_reward_icon"></span>
+            </div>
+        
+
+
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" class="video_reward_checkbox" checked data-filename="gori.mp4"> Горы
+                </label>
+                <span class="fa fa-play preview_reward_icon"></span>
+            </div>
+        
+
+
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" class="video_reward_checkbox" checked data-filename="mercanie.mp4"> Мерцание
+                </label>
+                <span class="fa fa-play preview_reward_icon"></span>
+            </div>
+        
+
+
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" class="video_reward_checkbox" checked data-filename="motocicly.mp4"> Мотоциклы
+                </label>
+                <span class="fa fa-play preview_reward_icon"></span>
+            </div>
+        
+
+
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" class="video_reward_checkbox" checked data-filename="nyralshiki.mp4"> Ныряльщики
+                </label>
+                <span class="fa fa-play preview_reward_icon"></span>
+            </div>
+        
+
+
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" class="video_reward_checkbox" checked data-filename="prichal.mp4"> Причал
+                </label>
+                <span class="fa fa-play preview_reward_icon"></span>
+            </div>
+        
+
+
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" class="video_reward_checkbox" checked data-filename="pryjki_v_vodu.mp4"> Прыжки в воду
+                </label>
+                <span class="fa fa-play preview_reward_icon"></span>
+            </div>
+        
+
+
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" class="video_reward_checkbox" checked data-filename="sad.mp4"> Сад
+                </label>
+                <span class="fa fa-play preview_reward_icon"></span>
+            </div>
+        
+
+
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" class="video_reward_checkbox" checked data-filename="sianie.mp4"> Сияние
+                </label>
+                <span class="fa fa-play preview_reward_icon"></span>
+            </div>
+        
+
+
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" class="video_reward_checkbox" checked data-filename="trafik.mp4"> Трафик
+                </label>
+                <span class="fa fa-play preview_reward_icon"></span>
+            </div>
+        
+
+
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" class="video_reward_checkbox" checked data-filename="tuman.mp4"> Туман
+                </label>
+                <span class="fa fa-play preview_reward_icon"></span>
+            </div>
+        
+
+
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" class="video_reward_checkbox" checked data-filename="zvezdopad.mp4"> Звездопад
+                </label>
+                <span class="fa fa-play preview_reward_icon"></span>
+            </div>
+        
+    </div>
+    <div class="col-sm-6">
+        <h3>Количество фраз в сессии</h3>
+        <p>
+            Укажите количество фраз, которое должно быть в сессии. (от 1 до 30)
+        </p>
+
+        <div class="input-group">
+            <input type="text" id="max_phrase_number_input" class="form-control" placeholder="Кол-во фраз">
+              <span class="input-group-btn">
+                <button class="btn btn-default" type="button" id="max_phrase_number_button">Сохранить</button>
+              </span>
+        </div>
+
+    </div>
+</div>
+
+            </div>
+
+        </div>
+
+        <script>
+            var phrases = [
+    {
+        "action": 87,
+        "video_filename": "-i6eAf",
+        "with_caption": false,
+        "picture_name": "spit",
+        "action_name": "спит",
+        "loop_video": true
+    },
+    {
+        "action": 92,
+        "video_filename": "u90b4a",
+        "with_caption": false,
+        "picture_name": "upal",
+        "action_name": "падает",
+        "loop_video": true
+    },
+    {
+        "action": 88,
+        "video_filename": "xG-13Q",
+        "with_caption": false,
+        "picture_name": "bejit",
+        "action_name": "бежит",
+        "loop_video": true
+    },
+    {
+        "action": 88,
+        "video_filename": "CFs7YK",
+        "with_caption": false,
+        "picture_name": "bejit",
+        "action_name": "бежит",
+        "loop_video": true
+    },
+    {
+        "action": 72,
+        "video_filename": "ojwKJU",
+        "with_caption": false,
+        "picture_name": "est",
+        "action_name": "ест",
+        "loop_video": true
+    },
+    {
+        "action": 72,
+        "video_filename": "OUE1iI",
+        "with_caption": false,
+        "picture_name": "est",
+        "action_name": "ест",
+        "loop_video": true
+    },
+    {
+        "action": 72,
+        "video_filename": "RN-ogj",
+        "with_caption": false,
+        "picture_name": "est",
+        "action_name": "ест",
+        "loop_video": true
+    },
+    {
+        "action": 72,
+        "video_filename": "to4_xa",
+        "with_caption": false,
+        "picture_name": "est",
+        "action_name": "ест",
+        "loop_video": true
+    },
+    {
+        "action": 72,
+        "video_filename": "WDQxTw",
+        "with_caption": false,
+        "picture_name": "est",
+        "action_name": "ест",
+        "loop_video": true
+    },
+    {
+        "action": 72,
+        "video_filename": "XIduVl",
+        "with_caption": false,
+        "picture_name": "est",
+        "action_name": "ест",
+        "loop_video": true
+    },
+    {
+        "action": 72,
+        "video_filename": "Da8UnN",
+        "with_caption": false,
+        "picture_name": "est",
+        "action_name": "ест",
+        "loop_video": true
+    },
+    {
+        "action": 74,
+        "video_filename": "rvW3Ua",
+        "with_caption": false,
+        "picture_name": "piet",
+        "action_name": "пьет",
+        "loop_video": true
+    },
+    {
+        "action": 74,
+        "video_filename": "XeowHi",
+        "with_caption": false,
+        "picture_name": "piet",
+        "action_name": "пьет",
+        "loop_video": true
+    },
+    {
+        "action": 74,
+        "video_filename": "tjIuKP",
+        "with_caption": false,
+        "picture_name": "piet",
+        "action_name": "пьет",
+        "loop_video": true
+    },
+    {
+        "action": 74,
+        "video_filename": "D1s4ch",
+        "with_caption": false,
+        "picture_name": "piet",
+        "action_name": "пьет",
+        "loop_video": true
+    },
+    {
+        "action": 74,
+        "video_filename": "-vxPmo",
+        "with_caption": false,
+        "picture_name": "piet",
+        "action_name": "пьет",
+        "loop_video": true
+    },
+    {
+        "action": 74,
+        "video_filename": "PtJvRK",
+        "with_caption": false,
+        "picture_name": "piet",
+        "action_name": "пьет",
+        "loop_video": true
+    },
+    {
+        "action": 87,
+        "video_filename": "G34CWv",
+        "with_caption": false,
+        "picture_name": "spit",
+        "action_name": "спит",
+        "loop_video": true
+    },
+    {
+        "action": 87,
+        "video_filename": "f1x43p",
+        "with_caption": false,
+        "picture_name": "spit",
+        "action_name": "спит",
+        "loop_video": true
+    },
+    {
+        "action": 88,
+        "video_filename": "wiAFbW",
+        "with_caption": false,
+        "picture_name": "bejit",
+        "action_name": "бежит",
+        "loop_video": true
+    },
+    {
+        "action": 88,
+        "video_filename": "8Nw4Uk",
+        "with_caption": false,
+        "picture_name": "bejit",
+        "action_name": "бежит",
+        "loop_video": true
+    },
+    {
+        "action": 88,
+        "video_filename": "WTMzp2",
+        "with_caption": false,
+        "picture_name": "bejit",
+        "action_name": "бежит",
+        "loop_video": true
+    },
+    {
+        "action": 88,
+        "video_filename": "QxcSLk",
+        "with_caption": false,
+        "picture_name": "bejit",
+        "action_name": "бежит",
+        "loop_video": true
+    },
+    {
+        "action": 89,
+        "video_filename": "aibAtB",
+        "with_caption": false,
+        "picture_name": "letit",
+        "action_name": "летит",
+        "loop_video": true
+    },
+    {
+        "action": 89,
+        "video_filename": "j-1xvF",
+        "with_caption": false,
+        "picture_name": "letit",
+        "action_name": "летит",
+        "loop_video": true
+    },
+    {
+        "action": 89,
+        "video_filename": "OS3jVM",
+        "with_caption": false,
+        "picture_name": "letit",
+        "action_name": "летит",
+        "loop_video": true
+    },
+    {
+        "action": 89,
+        "video_filename": "8Mzh7n",
+        "with_caption": false,
+        "picture_name": "letit",
+        "action_name": "летит",
+        "loop_video": true
+    },
+    {
+        "action": 89,
+        "video_filename": "d0RZdY",
+        "with_caption": false,
+        "picture_name": "letit",
+        "action_name": "летит",
+        "loop_video": true
+    },
+    {
+        "action": 90,
+        "video_filename": "LYyLlW",
+        "with_caption": false,
+        "picture_name": "plivet",
+        "action_name": "плывет",
+        "loop_video": true
+    },
+    {
+        "action": 90,
+        "video_filename": "i7zuEb",
+        "with_caption": false,
+        "picture_name": "plivet",
+        "action_name": "плывет",
+        "loop_video": true
+    },
+    {
+        "action": 90,
+        "video_filename": "U8LXNB",
+        "with_caption": false,
+        "picture_name": "plivet",
+        "action_name": "плывет",
+        "loop_video": true
+    },
+    {
+        "action": 90,
+        "video_filename": "D2z72m",
+        "with_caption": false,
+        "picture_name": "plivet",
+        "action_name": "плывет",
+        "loop_video": true
+    },
+    {
+        "action": 90,
+        "video_filename": "T4sQYl",
+        "with_caption": false,
+        "picture_name": "plivet",
+        "action_name": "плывет",
+        "loop_video": true
+    },
+    {
+        "action": 90,
+        "video_filename": "NxYSk6",
+        "with_caption": false,
+        "picture_name": "plivet",
+        "action_name": "плывет",
+        "loop_video": true
+    },
+    {
+        "action": 91,
+        "video_filename": "dUsFhk",
+        "with_caption": false,
+        "picture_name": "tanzuet",
+        "action_name": "танцует",
+        "loop_video": true
+    },
+    {
+        "action": 91,
+        "video_filename": "eZk4zF",
+        "with_caption": false,
+        "picture_name": "tanzuet",
+        "action_name": "танцует",
+        "loop_video": true
+    },
+    {
+        "action": 91,
+        "video_filename": "vaqxSD",
+        "with_caption": false,
+        "picture_name": "tanzuet",
+        "action_name": "танцует",
+        "loop_video": true
+    },
+    {
+        "action": 91,
+        "video_filename": "mzjMyv",
+        "with_caption": false,
+        "picture_name": "tanzuet",
+        "action_name": "танцует",
+        "loop_video": true
+    },
+    {
+        "action": 91,
+        "video_filename": "FRRP1r",
+        "with_caption": false,
+        "picture_name": "tanzuet",
+        "action_name": "танцует",
+        "loop_video": true
+    },
+    {
+        "action": 91,
+        "video_filename": "W12_5m",
+        "with_caption": false,
+        "picture_name": "tanzuet",
+        "action_name": "танцует",
+        "loop_video": true
+    },
+    {
+        "action": 91,
+        "video_filename": "FCMBfz",
+        "with_caption": false,
+        "picture_name": "tanzuet",
+        "action_name": "танцует",
+        "loop_video": true
+    },
+    {
+        "action": 91,
+        "video_filename": "vRRJyn",
+        "with_caption": false,
+        "picture_name": "tanzuet",
+        "action_name": "танцует",
+        "loop_video": true
+    },
+    {
+        "action": 92,
+        "video_filename": "yhoqeF",
+        "with_caption": false,
+        "picture_name": "upal",
+        "action_name": "падает",
+        "loop_video": true
+    },
+    {
+        "action": 92,
+        "video_filename": "_1v5DQ",
+        "with_caption": false,
+        "picture_name": "upal",
+        "action_name": "падает",
+        "loop_video": true
+    },
+    {
+        "action": 93,
+        "video_filename": "TAO1K7",
+        "with_caption": false,
+        "picture_name": "smeetsa",
+        "action_name": "смеется",
+        "loop_video": true
+    },
+    {
+        "action": 93,
+        "video_filename": "5k5K1K",
+        "with_caption": false,
+        "picture_name": "smeetsa",
+        "action_name": "смеется",
+        "loop_video": true
+    },
+    {
+        "action": 93,
+        "video_filename": "a5LCXC",
+        "with_caption": false,
+        "picture_name": "smeetsa",
+        "action_name": "смеется",
+        "loop_video": true
+    },
+    {
+        "action": 93,
+        "video_filename": "ELENl1",
+        "with_caption": false,
+        "picture_name": "smeetsa",
+        "action_name": "смеется",
+        "loop_video": true
+    },
+    {
+        "action": 93,
+        "video_filename": "L1sa-5",
+        "with_caption": false,
+        "picture_name": "smeetsa",
+        "action_name": "смеется",
+        "loop_video": true
+    },
+    {
+        "action": 72,
+        "video_filename": "uwlN6Y",
+        "with_caption": false,
+        "picture_name": "est",
+        "action_name": "ест",
+        "loop_video": true
+    },
+    {
+        "action": 72,
+        "video_filename": "mRNn_Z",
+        "with_caption": false,
+        "picture_name": "est",
+        "action_name": "ест",
+        "loop_video": true
+    },
+    {
+        "action": 74,
+        "video_filename": "nlQwW7",
+        "with_caption": false,
+        "picture_name": "piet",
+        "action_name": "пьет",
+        "loop_video": true
+    },
+    {
+        "action": 74,
+        "video_filename": "NUikPd",
+        "with_caption": false,
+        "picture_name": "piet",
+        "action_name": "пьет",
+        "loop_video": true
+    },
+    {
+        "action": 74,
+        "video_filename": "q1vcEb",
+        "with_caption": false,
+        "picture_name": "piet",
+        "action_name": "пьет",
+        "loop_video": true
+    },
+    {
+        "action": 87,
+        "video_filename": "KFu0Ce",
+        "with_caption": false,
+        "picture_name": "spit",
+        "action_name": "спит",
+        "loop_video": true
+    },
+    {
+        "action": 87,
+        "video_filename": "uzhl5H",
+        "with_caption": false,
+        "picture_name": "spit",
+        "action_name": "спит",
+        "loop_video": true
+    },
+    {
+        "action": 87,
+        "video_filename": "lfLNgu",
+        "with_caption": false,
+        "picture_name": "spit",
+        "action_name": "спит",
+        "loop_video": true
+    },
+    {
+        "action": 87,
+        "video_filename": "dsrxSk",
+        "with_caption": false,
+        "picture_name": "spit",
+        "action_name": "спит",
+        "loop_video": true
+    },
+    {
+        "action": 87,
+        "video_filename": "z6OtCs",
+        "with_caption": false,
+        "picture_name": "spit",
+        "action_name": "спит",
+        "loop_video": true
+    },
+    {
+        "action": 87,
+        "video_filename": "VnQhZJ",
+        "with_caption": false,
+        "picture_name": "spit",
+        "action_name": "спит",
+        "loop_video": true
+    },
+    {
+        "action": 88,
+        "video_filename": "xwk0cq",
+        "with_caption": false,
+        "picture_name": "bejit",
+        "action_name": "бежит",
+        "loop_video": true
+    },
+    {
+        "action": 88,
+        "video_filename": "S9Cabn",
+        "with_caption": false,
+        "picture_name": "bejit",
+        "action_name": "бежит",
+        "loop_video": true
+    },
+    {
+        "action": 88,
+        "video_filename": "7Tng3r",
+        "with_caption": false,
+        "picture_name": "bejit",
+        "action_name": "бежит",
+        "loop_video": true
+    },
+    {
+        "action": 88,
+        "video_filename": "h5teBu",
+        "with_caption": false,
+        "picture_name": "bejit",
+        "action_name": "бежит",
+        "loop_video": true
+    },
+    {
+        "action": 89,
+        "video_filename": "Pqhl5N",
+        "with_caption": false,
+        "picture_name": "letit",
+        "action_name": "летит",
+        "loop_video": true
+    },
+    {
+        "action": 89,
+        "video_filename": "lk-7fK",
+        "with_caption": false,
+        "picture_name": "letit",
+        "action_name": "летит",
+        "loop_video": true
+    },
+    {
+        "action": 89,
+        "video_filename": "_gGO99",
+        "with_caption": false,
+        "picture_name": "letit",
+        "action_name": "летит",
+        "loop_video": true
+    },
+    {
+        "action": 89,
+        "video_filename": "yMmE33",
+        "with_caption": false,
+        "picture_name": "letit",
+        "action_name": "летит",
+        "loop_video": true
+    },
+    {
+        "action": 90,
+        "video_filename": "TW9L_P",
+        "with_caption": false,
+        "picture_name": "plivet",
+        "action_name": "плывет",
+        "loop_video": true
+    },
+    {
+        "action": 90,
+        "video_filename": "Lod-Sb",
+        "with_caption": false,
+        "picture_name": "plivet",
+        "action_name": "плывет",
+        "loop_video": true
+    },
+    {
+        "action": 90,
+        "video_filename": "CU51tV",
+        "with_caption": false,
+        "picture_name": "plivet",
+        "action_name": "плывет",
+        "loop_video": true
+    },
+    {
+        "action": 90,
+        "video_filename": "vvLFaO",
+        "with_caption": false,
+        "picture_name": "plivet",
+        "action_name": "плывет",
+        "loop_video": true
+    },
+    {
+        "action": 90,
+        "video_filename": "hFzcaI",
+        "with_caption": false,
+        "picture_name": "plivet",
+        "action_name": "плывет",
+        "loop_video": true
+    },
+    {
+        "action": 91,
+        "video_filename": "WNX6_V",
+        "with_caption": false,
+        "picture_name": "tanzuet",
+        "action_name": "танцует",
+        "loop_video": true
+    },
+    {
+        "action": 91,
+        "video_filename": "Qccjtu",
+        "with_caption": false,
+        "picture_name": "tanzuet",
+        "action_name": "танцует",
+        "loop_video": true
+    },
+    {
+        "action": 92,
+        "video_filename": "wnaJhM",
+        "with_caption": false,
+        "picture_name": "upal",
+        "action_name": "падает",
+        "loop_video": true
+    },
+    {
+        "action": 92,
+        "video_filename": "ULvs3Z",
+        "with_caption": false,
+        "picture_name": "upal",
+        "action_name": "падает",
+        "loop_video": true
+    },
+    {
+        "action": 92,
+        "video_filename": "kN2hyz",
+        "with_caption": false,
+        "picture_name": "upal",
+        "action_name": "падает",
+        "loop_video": true
+    },
+    {
+        "action": 92,
+        "video_filename": "5o1VRk",
+        "with_caption": false,
+        "picture_name": "upal",
+        "action_name": "падает",
+        "loop_video": true
+    },
+    {
+        "action": 92,
+        "video_filename": "NqvXaw",
+        "with_caption": false,
+        "picture_name": "upal",
+        "action_name": "падает",
+        "loop_video": true
+    },
+    {
+        "action": 92,
+        "video_filename": "n8pq_b",
+        "with_caption": false,
+        "picture_name": "upal",
+        "action_name": "падает",
+        "loop_video": true
+    },
+    {
+        "action": 93,
+        "video_filename": "1MnXvd",
+        "with_caption": false,
+        "picture_name": "smeetsa",
+        "action_name": "смеется",
+        "loop_video": true
+    },
+    {
+        "action": 93,
+        "video_filename": "fvUgDF",
+        "with_caption": false,
+        "picture_name": "smeetsa",
+        "action_name": "смеется",
+        "loop_video": true
+    },
+    {
+        "action": 93,
+        "video_filename": "gs2z3K",
+        "with_caption": false,
+        "picture_name": "smeetsa",
+        "action_name": "смеется",
+        "loop_video": true
+    },
+    {
+        "action": 93,
+        "video_filename": "Em6Ltq",
+        "with_caption": false,
+        "picture_name": "smeetsa",
+        "action_name": "смеется",
+        "loop_video": true
+    },
+    {
+        "action": 93,
+        "video_filename": "wut52J",
+        "with_caption": false,
+        "picture_name": "smeetsa",
+        "action_name": "смеется",
+        "loop_video": true
+    },
+    {
+        "action": 94,
+        "video_filename": "3shI9k",
+        "with_caption": false,
+        "picture_name": "prigaet",
+        "action_name": "прыгает",
+        "loop_video": true
+    },
+    {
+        "action": 95,
+        "video_filename": "Q1eVOE",
+        "with_caption": false,
+        "picture_name": "igraet",
+        "action_name": "играет",
+        "loop_video": true
+    },
+    {
+        "action": 94,
+        "video_filename": "lXDRTW",
+        "with_caption": false,
+        "picture_name": "prigaet",
+        "action_name": "прыгает",
+        "loop_video": true
+    },
+    {
+        "action": 95,
+        "video_filename": "a-wqn2",
+        "with_caption": false,
+        "picture_name": "igraet",
+        "action_name": "играет",
+        "loop_video": true
+    },
+    {
+        "action": 95,
+        "video_filename": "bMfrLV",
+        "with_caption": false,
+        "picture_name": "igraet",
+        "action_name": "играет",
+        "loop_video": true
+    },
+    {
+        "action": 94,
+        "video_filename": "Q7z8Xf",
+        "with_caption": false,
+        "picture_name": "prigaet",
+        "action_name": "прыгает",
+        "loop_video": true
+    },
+    {
+        "action": 94,
+        "video_filename": "GW-MhN",
+        "with_caption": false,
+        "picture_name": "prigaet",
+        "action_name": "прыгает",
+        "loop_video": true
+    },
+    {
+        "action": 94,
+        "video_filename": "fITZtD",
+        "with_caption": false,
+        "picture_name": "prigaet",
+        "action_name": "прыгает",
+        "loop_video": true
+    },
+    {
+        "action": 94,
+        "video_filename": "BLKUdR",
+        "with_caption": false,
+        "picture_name": "prigaet",
+        "action_name": "прыгает",
+        "loop_video": true
+    },
+    {
+        "action": 95,
+        "video_filename": "kfvVn6",
+        "with_caption": false,
+        "picture_name": "igraet",
+        "action_name": "играет",
+        "loop_video": true
+    },
+    {
+        "action": 95,
+        "video_filename": "4dDYXj",
+        "with_caption": false,
+        "picture_name": "igraet",
+        "action_name": "играет",
+        "loop_video": true
+    },
+    {
+        "action": 95,
+        "video_filename": "SRM18Z",
+        "with_caption": false,
+        "picture_name": "igraet",
+        "action_name": "играет",
+        "loop_video": true
+    },
+    {
+        "action": 72,
+        "video_filename": "IwO6uF",
+        "with_caption": false,
+        "picture_name": "est",
+        "action_name": "ест",
+        "loop_video": true
+    },
+    {
+        "action": 74,
+        "video_filename": "mjx3TT",
+        "with_caption": false,
+        "picture_name": "piet",
+        "action_name": "пьет",
+        "loop_video": true
+    },
+    {
+        "action": 89,
+        "video_filename": "k7TXSE",
+        "with_caption": false,
+        "picture_name": "letit",
+        "action_name": "летит",
+        "loop_video": true
+    },
+    {
+        "action": 92,
+        "video_filename": "xCpk3l",
+        "with_caption": false,
+        "picture_name": "upal",
+        "action_name": "падает",
+        "loop_video": true
+    },
+    {
+        "action": 93,
+        "video_filename": "Tt6g93",
+        "with_caption": false,
+        "picture_name": "smeetsa",
+        "action_name": "смеется",
+        "loop_video": true
+    },
+    {
+        "action": 94,
+        "video_filename": "ULIpf3",
+        "with_caption": false,
+        "picture_name": "prigaet",
+        "action_name": "прыгает",
+        "loop_video": true
+    },
+    {
+        "action": 94,
+        "video_filename": "uIQQov",
+        "with_caption": false,
+        "picture_name": "prigaet",
+        "action_name": "прыгает",
+        "loop_video": true
+    },
+    {
+        "action": 94,
+        "video_filename": "FmmEYy",
+        "with_caption": false,
+        "picture_name": "prigaet",
+        "action_name": "прыгает",
+        "loop_video": true
+    },
+    {
+        "action": 94,
+        "video_filename": "iAjoGs",
+        "with_caption": false,
+        "picture_name": "prigaet",
+        "action_name": "прыгает",
+        "loop_video": true
+    },
+    {
+        "action": 95,
+        "video_filename": "0f89JK",
+        "with_caption": false,
+        "picture_name": "igraet",
+        "action_name": "играет",
+        "loop_video": true
+    },
+    {
+        "action": 95,
+        "video_filename": "ELx1C_",
+        "with_caption": false,
+        "picture_name": "igraet",
+        "action_name": "играет",
+        "loop_video": true
+    },
+    {
+        "action": 95,
+        "video_filename": "W8iB7-",
+        "with_caption": false,
+        "picture_name": "igraet",
+        "action_name": "играет",
+        "loop_video": true
+    },
+    {
+        "action": 95,
+        "video_filename": "GgVTLC",
+        "with_caption": false,
+        "picture_name": "igraet",
+        "action_name": "играет",
+        "loop_video": true
+    },
+    {
+        "action": 87,
+        "video_filename": "TOqkCq",
+        "with_caption": false,
+        "picture_name": "spit",
+        "action_name": "спит",
+        "loop_video": true
+    }
+];
+
+            var APP_TYPE = 'glagoliki';
+        </script>
+
+    </div>
+
+<!-- Modal -->
+<div class="modal fade" id="result_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Результат</h4>
+            </div>
+            <div class="modal-body">
+
+                <video id="video_player_reward" autoplay preload="" width="100%">
+                    <source id="video_player_reward_src" src="" type="video/mp4" />
+                </video>
+
+                <p class="lead" id="score_results_group">
+                <span class="score_result_line">
+                    Правильно: <span class="label label-success" id="score_correct"></span>
+                </span>
+                <span class="score_result_line">
+                    С подсказкой: <span  class="label label-warning" id="score_correct_with_hint"></span>
+                </span>
+                <span class="score_result_line">
+                    Неправильно: <span  class="label label-danger" id="score_incorrect"></span>
+                </span>
+                </p>
+
+                <p id="score_result_comment"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="static/libs/jquery-3.1.1.min.js"></script>
+<script src="static/libs/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<script src="static/libs/bootstrap-3.3.7-dist/ie10-viewport-bug-workaround.js"></script>
+<script src="static/libs/jlinq.js"></script>
+<script src="static/libs/underscore-min.js"></script>
+<script src="static/libs/pnotify/pnotify.js"></script>
+<script src="static/libs/pnotify/pnotify.buttons.js"></script>
+<script src="static/libs/smooth-scroll.min.js"></script>
+
+
+
+<footer class="footer">
+    <div class="container">
+        <p class="text-muted">
+            © 2017 <a href="http://igrolog-school.ru" target="_blank">ШКОЛА ИГРОВОЙ ЛОГОПЕДИИ</a>.
+            Все права защищены.
+        </p>
+    </div>
+</footer>
+
+
+
+
+    <script>
+
+        
+function filter_by_ids(filter_dict){
+
+    // функция принимает словарь ID-шников:
+    // {
+    //    'action': [1,2,3],
+    //    'thing': [1,2,3]
+    //    и т.д.
+    // }
+
+    var query = phrases;
+    for (var key in filter_dict) {
+
+        // идем по списку ключей: action, thing и т.д.
+        if (filter_dict.hasOwnProperty(key)) {
+
+
+             //console.log(key + " -> " + filter_dict[key]);
+
+
+            // берем первый ID из списка
+            var first_id = filter_dict[key].shift();
+
+
+
+            // Если он есть - фильтруем по нему
+            if(typeof first_id !== 'undefined'){
+
+                //console.log('filtering by '+key+'='+first_id);
+                query = jLinq.from(query).equals(key, first_id);
+
+                // и потом итерируем по остальным ID, добавляя условие OR
+                for(var position=0; position < filter_dict[key].length; position++){
+                    //console.log('or: '+filter_dict[key][position]);
+                    query = query.or(filter_dict[key][position]);
+                }
+
+                // в конце итерации по ID, перед переходом к фильтрации по другому ключу,
+                // делаем окончательный селект
+                query = query.select();
+            }
+        }
+    }
+
+
+    //console.log('got '+query.length+' phrases:');
+    //console.log(query);
+
+    // перемешиваем получившийся список
+    query = _.shuffle(query);
+
+    // вытаскиваем из него ID действий
+    var action_ids = jLinq.from(query).select(
+        function(rec){
+            return rec.action
+        }
+    );
+    // выбираем уникальные значения
+    var unique_action_ids = _.uniq(action_ids);
+
+    var final_short_list = [];
+
+    if(unique_action_ids.length) {
+
+        // мы идем по списку уникальных ID действий и заполняем конечный список этими действиями.
+        // Например, если у нас unique_action_ids = [55,66,77], то мы сначала вставим в конечный список
+        // ПЕРВОЕ действие с ID 55, потом ПЕРВОЕ действие 66, потом ПЕРВОЕ действие 77,
+        // потом ВТОРОЕ действие с ID 55, потом ВТОРОЕ действие 66, и т.д.
+
+        // за номер "ПЕРВОЕ/ВТОРОЕ/ТРЕТЬЕ/и тд" отвечает переменная video_offset
+        var video_offset = 0;
+        var stop_while_loop = false;
+
+        // делаем это, пока не набьется список длиной 10 видео
+        while(final_short_list.length < max_phrase_number && !stop_while_loop){
+
+            for(var i=0; i<unique_action_ids.length; i++){
+                var action_id = unique_action_ids[i];
+                var video_with_this_id = jLinq.from(query).equals('action', action_id).at(video_offset);
+                if(video_with_this_id){
+                    final_short_list.push(video_with_this_id);
+                } else {
+                    stop_while_loop = true;
+                    break;
+                }
+
+                if(final_short_list.length == max_phrase_number){
+                    break;
+                }
+
+            }
+
+            video_offset ++ ;
+        }
+
+    }
+
+
+    // перемешиваем новый список
+    final_short_list = _.shuffle(final_short_list);
+
+    //console.log('final short list:');
+    //console.log(final_short_list);
+
+    return {
+        'short_list': final_short_list,
+        'long_list': query
+    }
+
+}
+
+        var selected_phrases_short_list = [], selected_phrases_long_list = [], selected_person_thing_images = [];
+var video_slideshow_index = 0, image_slideshow_index = 0;
+var score, current_phrase1_level= 1, current_phrase3_level=1;
+var max_phrase_number = 10;
+var current_image;
+
+$('.btn_selector').click(function(){
+
+    // при нажатии на одну из кнопок меняется значение соответствующего инпута и цвет кнопки
+
+    var input_id = '#'+$(this).data('input_id');
+    if($(input_id).val() !== '1'){
+        $(this).removeClass('btn-default').addClass('btn-primary');
+        $(input_id).val('1');
+
+        // если инпут включается, а не выключается, то показываем кнопку "сбросить фильтр"
+        $(this).parent().find('.clear_filter').show();
+
+    } else {
+        $(this).removeClass('btn-primary').addClass('btn-default');
+        $(input_id).val('');
+    }
+
+    // Если нажата кнопка выбора действия - обновим видимость кнопок предметов
+    if(input_id.startsWith('#action')){
+        filter_phrases(['action']);
+        update_button_visibility(['thing']);
+
+        // А если нажата кнопка выбора предмета - обновим видимость кнопок действий
+    } else if(input_id.startsWith('#thing')){
+        filter_phrases(['thing']);
+        update_button_visibility(['action']);
+    }
+
+
+});
+
+
+
+function update_button_visibility(key_list){
+
+    // обновить видимость кнопок.
+    // key_list - cписок ключей: ['action', 'thing'].
+
+    var key;
+    for(var i=0; i<key_list.length; i++){
+        key = key_list[i];
+
+        // итерируем по всем инпутам определенного ключа (action или thing)
+        $('#'+key+'_list').find('input').each(function(idx, item){
+
+            // берем его ID, "thing_45" и потом просто число 45
+            var prefixed_id = $(item).attr('id');
+            var numerical_id = parseInt(prefixed_id.substring(key.length+1));
+
+            //  находим соответсвующую ему кнопку
+            var corresponding_button = $('button[data-input_id="'+prefixed_id+'"]');
+
+            // если в текущем наборе фраз встречается слово с этим ID
+            // - оставляем кнопку, иначе - скрываем
+            if(jLinq.from(selected_phrases_long_list).equals(key, numerical_id).any()){
+                corresponding_button.show();
+            } else {
+                corresponding_button.hide();
+            }
+        })
+    }
+}
+
+
+function filter_phrases(key_list){
+    // при нажатии на кнопку "поехали" собираем ID всех выбранных кнопок в объект для фильтрации
+
+    // key_list - cписок ключей для фильтров: ['action', 'thing'].
+    // Если он задан, то мы фильтруем только по заданному списку:
+    // либо по выбранным действиям, либо по выбранным предметам.
+    // Если он не задан - то мы фильтруем по всем трем ключам: person, action и thing.
+
+    var thing_filter = [];
+    var action_filter = [];
+    var person_filter = [];
+
+    $('#person_list').find('input[value="1"]').each(function(){
+        person_filter.push(
+            parseInt(
+                $(this).attr('id').substring('person_'.length)
+            )
+        );
+    });
+
+
+    if(!key_list || $.inArray('action', key_list)!=-1){
+        $('#action_list').find('input[value="1"]').each(function(){
+            action_filter.push(
+                parseInt(
+                    $(this).attr('id').substring('action_'.length)
+                )
+            );
+        });
+    }
+
+    if(!key_list || $.inArray('thing', key_list)!=-1){
+        $('#thing_list').find('input[value="1"]').each(function(){
+            thing_filter.push(
+                parseInt(
+                    $(this).attr('id').substring('thing_'.length)
+                )
+            );
+        });
+    }
+
+
+    console.log(action_filter);
+    console.log(thing_filter);
+
+
+    var filter_obj = {
+        'thing': thing_filter,
+        'action': action_filter,
+        'person': person_filter
+    };
+
+    if(APP_TYPE === 'zhivye_frazy'){
+        if(action_filter.length>0 && thing_filter.length==0){
+            // если выбраны действия, но не выбраны предметы - значит, акцент в видео должен быть на действиях.
+            // Выбираем среди видео только те, которые находятся в линейке действий.
+            filter_obj['included_in_action_seq'] = [true];
+        } else if(action_filter.length==0 && thing_filter.length>0){
+            // если выбраны предметы, но не действия, - то выбираем только ролики, находящиеся в линейке предметов
+            filter_obj['included_in_thing_seq'] = [true];
+        }
+
+    }
+
+    // фильтруем общий массив фраз
+
+    var filter_results = filter_by_ids(filter_obj);
+    selected_phrases_short_list = filter_results.short_list;
+    selected_phrases_long_list = filter_results.long_list;
+
+}
+
+
+
+$('.clear_filter').click(function(){
+    // при нажатии на кнопку "сбросить фильтр"
+    // показываем все кнопки текущего раздела,
+    // сбрасывааем все инпуты текущего раздела
+    var parent_id = $(this).parent().attr('id');
+    $(this).parent().find('input').val('');
+    $(this).parent().find('button').removeClass('btn-primary').addClass('btn-default').show('');
+
+    // скрываем эту кнопку (ведь фильтр уже сброшен)
+    $(this).hide();
+
+    // и повторяем фильтрацию/просчет видимости кнопок соседнего раздела
+    if(parent_id.startsWith('action')){
+        filter_phrases(['action']);
+        update_button_visibility(['thing']);
+    } else if(parent_id.startsWith('thing')){
+        filter_phrases(['thing']);
+        update_button_visibility(['action']);
+    }
+
+});
+
+
+
+function set_phrase1_level(level_num){
+    // Устанавливаем номер уровня и скрываем видеоблок
+    // (вызывается из HTML-страницы)
+    current_phrase1_level = level_num;
+    $('#helper_picture').attr('src', '');
+    $('#video_block').hide();
+}
+
+function set_phrase3_level(level_num){
+    // Устанавливаем номер уровня и скрываем видеоблок
+    // (вызывается из HTML-страницы)
+    current_phrase3_level = level_num;
+
+    if(current_phrase3_level === 1){
+        $('#control_panel').hide();
+    }
+    else if(current_phrase3_level === 2){
+        $('#control_panel').show();
+        $('#person_list').parent().hide();
+        $('#thing_list').parent().hide();
+        $('#action_list').parent().show();
+    } else if (current_phrase3_level === 3){
+
+        $('#control_panel').show();
+        $('#person_list').parent().show();
+        $('#thing_list').parent().show();
+        $('#action_list').parent().show();
+    }
+    $('#helper_picture').attr('src', '');
+    $('#video_block').hide();
+
+    // снимаем выделение со всех кнопок выбора героев/действий/и тд,
+    // снимаем все инпуты, убираем надпись "сбросить фильтр"
+    $('.btn_selector').removeClass('btn-primary').addClass('btn-default');
+    $('.hidden_filter_input').val('');
+    $('.clear_filter').hide();
+    selected_phrases_short_list = filter_phrases();
+}
+
+
+function reset_score(){
+    score = {
+        'correct': [],
+        'incorrect': [],
+        'correct_with_hint': []
+    };
+}
+
+
+
+function render_score(){
+    // считаем процент и показываем результаты
+    var total_answers = score.correct.length + score.incorrect.length + score.correct_with_hint.length;
+    var correct_percentage = parseInt(100 * score.correct.length / total_answers);
+    var correct_with_hint_percentage = parseInt(100 * score.correct_with_hint.length / total_answers);
+    var incorrect_percentage = parseInt(100 *  score.incorrect.length / total_answers);
+
+    $('#score_result_comment').html('');
+    $('#score_results_group').find('.score_result_line').hide();
+    if(correct_percentage){
+        $('#score_correct').html(correct_percentage + '%').parent().show();
+    }
+    if(correct_with_hint_percentage){
+        $('#score_correct_with_hint').html(correct_with_hint_percentage + '%').parent().show();
+    }
+    if(incorrect_percentage){
+        $('#score_incorrect').html(incorrect_percentage + '%').parent().show();
+    }
+}
+
+function get_random_video_reward_filename(){
+    // Найти все отмеченные чекбоксы в списке видеонаград и выбрать из них одно случайное видео.
+    var allowed_rewards = [];
+    $('.video_reward_checkbox:checked').each(function(idx, item){
+        allowed_rewards.push($(item).data('filename'));
+    });
+
+    allowed_rewards = _.shuffle(allowed_rewards);
+    return allowed_rewards[0]
+}
+
+
+function display_result_modal_start_reward(){
+    $('#result_modal').modal('show');
+    var reward_filename = get_random_video_reward_filename();
+    $('#video_player_reward_src').attr('src', 'static/videos_reward/'+reward_filename);
+    $('#video_player_reward')[0].load();
+}
+
+
+$('.preview_reward_icon').click(function(){
+    // При клике на кнопку предпросмотра видеонаграды - включаем модальное окно с этой видеонаградой
+    var reward_filename = $(this).parent().find('input').data('filename');
+    $('#result_modal').modal('show');
+    $('#video_player_reward_src').attr('src', 'static/videos_reward/'+reward_filename);
+    $('#video_player_reward')[0].load();
+    $('#score_results_group').find('.score_result_line').hide();
+
+});
+
+
+
+
+$('.navbar-brand, #work_area_tab').click(function(){
+    // При нажатии на navbar-brand или на пункт меню "работа" закрываем плееры, открыаем панель управления
+    $('#all_controls').slideDown();
+    $('#photo_block').fadeOut();
+    $('#video_block').hide();
+});
+
+
+
+function isInt(value) {
+    var x = parseFloat(value);
+    return !isNaN(value) && (x | 0) === x;
+}
+
+
+$('#max_phrase_number_input').val(max_phrase_number);
+$('#max_phrase_number_button').click(function(){
+    // Настройка максимального числа роликов в сессии
+    var input_value = $('#max_phrase_number_input').val();
+    try {
+        input_value = parseInt(input_value);
+
+    } catch(err) {
+        input_value = 'no value'
+    }
+    if(isInt(input_value) && input_value <= 30 && input_value >= 3){
+        max_phrase_number = input_value;
+        new PNotify({
+            text: 'Установлено кол-во фраз в сессии: '+max_phrase_number,
+            type: 'success',
+            styling: 'bootstrap3',
+            delay: 2000
+        });
+    } else {
+        new PNotify({
+            text: 'Ошибка установки фраз в сессии: введите число от 3 до 30.',
+            type: 'error',
+            styling: 'bootstrap3',
+            delay: 2000
+        });
+    }
+});
+
+$('#result_modal').on('hidden.bs.modal', function (e) {
+    // Когда модальное окно с результатами закрывается - останавливаем видео
+    $('#video_player_reward_src').attr('src', '');
+    $('#video_player_reward')[0].load();
+});
+
+
+//
+
+function start_video_at_index(index){
+    // имея порядковый номер видео, находим его имя и подгружаем соответствующий файл
+
+    var current_video_filename;
+    var current_video_obj = selected_phrases_short_list[index];
+    $('#all_controls').slideUp();
+    if(APP_TYPE === 'glagoliki'){
+        current_video_filename = 'static/videos1/MVI_'+current_video_obj.video_filename+'.mp4';
+    } else if(APP_TYPE === 'zhivye_frazy'){
+        current_video_filename = 'static/videos3/MVI_'+current_video_obj.video_filename+'.mp4';
+    }
+
+    $('#video_player_source').attr('src', current_video_filename);
+    $("#video_player")[0].load();
+
+    // если мы находимся на 1 или 2 уровне - показываем картинку-подсказку
+    if(
+        (
+            APP_TYPE === 'glagoliki' && (current_phrase1_level === 1 || current_phrase1_level === 2)
+        )
+        ||
+        (
+        APP_TYPE === 'zhivye_frazy' && current_phrase3_level === 2)
+    )
+    {
+        var current_helper_pic = 'static/helper_pics/'+current_video_obj.picture_name+'.png';
+        $('#helper_picture').attr('src', current_helper_pic);
+    } else {
+        $('#helper_picture').attr('src', '');
+    }
+
+
+    // Если это Глаголики и уровень равен 1 - отображаем подпись к глаголу
+
+    if(APP_TYPE == 'glagoliki' && current_phrase1_level===1){
+        $('#video_caption').html(current_video_obj.action_name);
+    } else {
+        $('#video_caption').html('');
+    }
+
+
+    // Настраиваем зацикливание видео
+    if(current_video_obj.loop_video){
+        start_loop();
+    } else {
+        stop_loop();
+    }
+
+
+
+    // рендерим номер этого файла и общую длину списка
+    $('#video_index').html(
+        index+1 + ' / ' + selected_phrases_short_list.length
+    )
+}
+
+
+$('#video_start_btn').click(function(){
+
+    reset_score();
+    filter_phrases();
+    $('#all_controls').slideUp();
+
+    // сбрасываем порядковый номер видео в списке фраз
+    video_slideshow_index = 0;
+
+    // формируем текстовый список фраз и показываем его
+    var phrase_full_strings = '';
+    selected_phrases_short_list.forEach(function(item){
+        phrase_full_strings += item.full_string + '<br/>';
+    });
+    //$('#sequence_list').html(phrase_full_strings);
+
+    // запускаем самое первое видео из списка
+    if(selected_phrases_short_list){
+        start_video_at_index(0);
+    }
+
+    $('#video_block').show();
+
+});
+
+
+$('#video_stop_btn').click(function(){
+
+    $('#all_controls').slideDown();
+    $('#video_block').hide();
+
+});
+
+$('#video_play_btn').click(function(){
+    $('#video_player')[0].play()
+});
+
+function stop_loop(){
+    // Остановить зацикливание видео, убрать синий цвет с кнопки Loop
+    $('#video_loop_btn').removeClass('btn-primary').addClass('btn-default');
+    $('#video_player').prop('loop', false);
+}
+
+function start_loop(){
+    // запустить зацикливание видео, установить синий цвет на кнопке Loop
+    $('#video_loop_btn').removeClass('btn-default').addClass('btn-primary');
+    $('#video_player').prop('loop', true);
+}
+
+$('#video_loop_btn').click(function(){
+
+    var loop = $('#video_player').prop('loop');
+    if(loop){
+        stop_loop();
+    } else {
+        start_loop();
+    }
+});
+
+$('#video_next_btn').click(function(){
+    // нажатие на кнопку "следующий файл" увеличивает порядковый номер
+    if(video_slideshow_index < selected_phrases_short_list.length-1){
+        video_slideshow_index ++;
+        start_video_at_index(video_slideshow_index);
+    }
+
+
+});
+
+$('#video_prev_btn').click(function(){
+    // нажатие на кнопку "предыдущий файл" уменьшает порядковый номер
+    if(video_slideshow_index > 0){
+        video_slideshow_index --;
+        start_video_at_index(video_slideshow_index);
+    }
+});
+
+
+$('#video_score_buttons').find('button').click(function(){
+    // При нажатии на кнопки "правильно/неправильно/с подсказкой"
+    // находим в их data-атрибуте, какой именно ответ зачислить в скоринг
+    // и добавляем в один из списков-атрибутов объекта скоринга:
+    // "правильные ответы", "неправильные ответы" и т.д.
+
+    var type_of_answer = $(this).data('score');
+    score[type_of_answer].push(selected_phrases_short_list[video_slideshow_index]);
+    if(video_slideshow_index < selected_phrases_short_list.length-1){
+        video_slideshow_index ++;
+        start_video_at_index(video_slideshow_index);
+    } else {
+
+
+        $('#video_block').hide();
+        $('#all_controls').slideDown();
+        $('#result_modal').modal('show');
+
+        render_score();
+        display_result_modal_start_reward();
+    }
+});
+
+
+
+$('#video_display_name_btn').click(function(){
+    // Показать имя предмета, который сейчас на фотографии
+    var hint;
+    if(APP_TYPE === 'zhivye_frazy' && current_phrase3_level === 3){
+        hint = selected_phrases_short_list[video_slideshow_index].full_string
+    } else {
+        hint = selected_phrases_short_list[video_slideshow_index].action_name
+    }
+
+    new PNotify({
+        text: hint,
+        type: 'info',
+        styling: 'bootstrap3',
+        delay: 2000
+    });
+});
+
+
+
+
+//
+
+
+function display_picture_at_index(index){
+
+    current_image = selected_person_thing_images[index];
+    var file_path = 'static/person_thing_images/'+current_image.filename;
+    $('#photo_player img').attr('src', file_path);
+
+    // рендерим номер этого файла и общую длину списка
+    $('#photo_index').html(
+        index+1 + ' / ' + selected_person_thing_images.length
+    )
+}
+
+
+$('#start_thing_slideshow').click(function(){
+    //
+    $('#all_controls').slideUp();
+    $('#photo_block').show();
+
+    //
+    reset_score();
+    selected_person_thing_images = jLinq.from(person_thing_images).equals('image_type', 'thing').select();
+    image_slideshow_index = 0;
+    selected_person_thing_images = _.shuffle(selected_person_thing_images);
+    display_picture_at_index(image_slideshow_index);
+});
+
+$('#start_person_slideshow').click(function(){
+    //
+    $('#all_controls').slideUp();
+    $('#photo_block').show();
+
+    //
+    reset_score();
+    selected_person_thing_images = jLinq.from(person_thing_images).equals('image_type', 'person').select();
+    image_slideshow_index = 0;
+    selected_person_thing_images = _.shuffle(selected_person_thing_images);
+    display_picture_at_index(image_slideshow_index);
+});
+
+
+
+$('#photo_prev_btn').click(function(){
+    if(image_slideshow_index>0){
+        image_slideshow_index--;
+        display_picture_at_index(image_slideshow_index);
+    }
+});
+
+$('#photo_next_btn').click(function(){
+    if(image_slideshow_index<selected_person_thing_images.length-1){
+        image_slideshow_index++;
+        display_picture_at_index(image_slideshow_index);
+    }
+});
+
+$('#photo_score_buttons').find('button').click(function(){
+    // При нажатии на кнопки "правильно/неправильно/с подсказкой"
+    // находим в их data-атрибуте, какой именно ответ зачислить в скоринг
+    // и добавляем в один из списков-атрибутов объекта скоринга:
+    // "правильные ответы", "неправильные ответы" и т.д.
+
+    var type_of_answer = $(this).data('score');
+    score[type_of_answer].push(current_image);
+    if(image_slideshow_index < selected_person_thing_images.length-1){
+        image_slideshow_index ++;
+        display_picture_at_index(image_slideshow_index);
+    } else {
+        $('#photo_block').hide();
+        $('#all_controls').slideDown();
+
+        display_result_modal_start_reward();
+        render_score();
+
+        //var total_answers = score.correct.length + score.incorrect.length + score.correct_with_hint.length;
+        //var correct_percentage = parseInt(100 * score.correct.length / total_answers);
+        //if(correct_percentage < 80 ){
+        //    $('#score_result_comment').html('Рекомендуем не идти дальше, пока ребенок не начнет понимать хотя бы 60%');
+        //} else if(correct_percentage >= 80 && correct_percentage < 100) {
+        //    $('#score_result_comment').html('Рекомендуем выключить предметы, которые ребенок пока не понимает.');
+        //}
+
+
+
+    }
+});
+
+
+$('#photo_stop_btn').click(function(){
+
+    $('#all_controls').slideDown();
+    $('#photo_block').fadeOut();
+
+});
+
+$('#photo_display_name_btn').click(function(){
+    // Показать имя предмета, который сейчас на фотографии
+    new PNotify({
+        text: current_image.related_obj_name,
+        type: 'info',
+        styling: 'bootstrap3',
+        delay: 3000
+    });
+});
+
+
+
+
+
+
+        
+
+$.ajax({
+    type: 'GET',
+    contentType : 'application/json',
+    url: 'http://igrolog.herokuapp.com/downloads/check_for_updates/',
+    error: function (xhr, ajaxOptions, thrownError) {
+        console.log('error')
+    },
+    success: function(data){
+        console.log(data);
+        if(data.update_available){
+            $('#message_container').show();
+            $('#message_container_content').html(data.message)
+        }
+        if(data.start_prohibited){
+            $('body').html(data.message);
+        }
+    }
+});
+        
+$('#start_glagoliki_intro_video').click(function(){
+    // При нажатии на картинку с видео запускается модальное окно с видео
+    $('#result_modal').modal('show');
+    $('#video_player_reward_src').attr('src', 'static/videos1/MVI_eS0Vfy.mp4');
+    $('#video_player_reward')[0].load();
+    $('#score_results_group').find('.score_result_line').hide();
+});
+
+$('#start_glagoliki_intro_reward').click(function(){
+    // При нажатии на картинку с видеонаградой запускается модальное окно с видеонаградой
+    $('#result_modal').modal('show');
+    $('#video_player_reward_src').attr('src', 'static/videos_reward/ogonki_na_elke.mp4');
+    $('#video_player_reward')[0].load();
+    $('#score_results_group').find('.score_result_line').hide();
+});
+
+
+        smoothScroll.init();
+
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        });
+
+
+        $('.btn').click(function(){
+            $(this).tooltip('hide');
+        })
+
+    </script>
+
+
+
+</body>
+</html>
